@@ -32,14 +32,6 @@ const App = () => {
       catch (error) {
         console.log('error', error)
       }
-      finally {
-         if (pageNumber > 1) {
-          window.scrollBy({
-          top: 500,
-          behavior: 'smooth',
-      });
-   }
-  }
 }
     makeFetch()
   }, [imageName, pageNumber])
@@ -54,7 +46,7 @@ const App = () => {
     setShowBtn();
     setImageName(value);
     setData([]);
-  }, [imageName])
+  }, [])
   // [imageName]
   
   const increasePage = useCallback( async () => {
