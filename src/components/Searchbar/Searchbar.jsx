@@ -1,50 +1,40 @@
-
-import React, { Component } from 'react';
 import { FiSearch } from 'react-icons/fi';
 import PropTypes from 'prop-types';
 import { StyledHeader, StyledForm, FormContainer, StyledInput, StyledBtn } from './Searchbar.styled';
+import { useState,memo } from 'react';
 
-class SearchBar extends Component {
-    state = {
-        imageName: '',
-    } 
-    
-     static propTypes = {
-        onSubmit: PropTypes.func.isRequired,
-        onValidation: PropTypes.func.isRequired
-    };
+const SearchBar = ({onSubmit, onValidation}) => {
+const [value, setValue] = useState('')    
 
-    handleImageChange= (event) => {
-        this.setState({ imageName: event.currentTarget.value.toLowerCase() });
+    const handleImageChange= (event) => {
+        setValue(event.currentTarget.value.toLowerCase().trim());
     }  
 
-    handleSubmit( event, callback, showMessage) {
+    const handleSubmit =( event, callback, showMessage)=> {
         event.preventDefault();
         
-        const { imageName } = this.state;
-        if (!imageName.trim() ) return showMessage('Please fill this field');
-         callback({ imageName });
-        this.reset();
+        if (!value.trim()) return showMessage('Please fill this field');
+        console.log(value)
+        callback( value );
+        console.log(callback( {value }))
+        reset();
     }
 
-    reset= ()=> {
-        this.setState({ imageName: ''})
+    const reset = ()=> {
+        setValue('')
     }
-    render() {
-        // const { name, tel } = this.state;
-        const { onSubmit, onValidation } = this.props;
         return (
         <StyledHeader >
-                <StyledForm onSubmit={(event) => this.handleSubmit(event, onSubmit, onValidation)}>
+                <StyledForm onSubmit={(event) => handleSubmit(event, onSubmit, onValidation)}>
                     <FormContainer>
                             <StyledBtn type="submit"  >
                             <FiSearch style={{marginRight:8}}/>
                             </StyledBtn>
                             <StyledInput
-                            onChange={this.handleImageChange}
+                            onChange={handleImageChange}
                             type="text"
-                            name = 'name'
-                            value={this.state.imageName}
+                            name = 'value'
+                            value={value}
                             autoComplete={'off'}
                             autoFocus
                             placeholder="Search images and photos"
@@ -53,7 +43,9 @@ class SearchBar extends Component {
             </StyledForm>
         </StyledHeader>
         )
-    }
 }
-
-export default SearchBar;
+SearchBar.propTypes = {
+    onSubmit: PropTypes.func.isRequired,
+    onValidation: PropTypes.func.isRequired
+};
+export default memo(SearchBar);

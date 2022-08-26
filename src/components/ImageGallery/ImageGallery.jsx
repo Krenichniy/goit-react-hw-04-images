@@ -1,17 +1,8 @@
-import { Component } from "react";
 import PropTypes from 'prop-types';
 import ImageGalleryItem from '../ImageGalleryItem';
 import { StyledImageGallery } from './ImageGallery.styled';
 
-class ImageGallery extends Component {
-
-    static propTypes = {
-        onClick: PropTypes.func.isRequired,
-        data:PropTypes.array.isRequired,
-    };
-
-    render() {
-        const { data, onClick } = this.props;
+const ImageGallery = ({ data, onClick }) => {
         return(
             <>
                 <StyledImageGallery >
@@ -19,8 +10,10 @@ class ImageGallery extends Component {
                 </StyledImageGallery>
             </>
         )
-    } 
 }
-
+ImageGallery.propTypes = {
+    onClick: PropTypes.func.isRequired,
+    data:PropTypes.array.isRequired,
+};
 export default ImageGallery;
 

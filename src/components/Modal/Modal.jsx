@@ -1,31 +1,31 @@
 import PropTypes from "prop-types"
-import { Component } from "react"
-import {ModalContainer, ModalOverlay} from './Modal.styled'
-class Modal extends Component {
-    componentDidMount() {
-        document.addEventListener('keyup', this.closeByEscape)
+import { useEffect } from "react";
+import { ModalContainer, ModalOverlay } from './Modal.styled';
+
+
+const Modal = ({image, onClick}) => {
+    useEffect(() => {
+        document.addEventListener('keyup', closeByEscape);
+        return () => {
+            document.removeEventListener('keyup', closeByEscape);
         }
-    componentWillUnmount() {
-        document.removeEventListener('keyup', this.closeByEscape)
+    }, )
+
+    const  closeByEscape = (e) => {
+        if (e.key === 'Escape') onClick()
     }
-    closeByEscape = (e) => {
-        if (e.key === 'Escape') this.props.onClick()
+   const closeByBackdrop = (e) => {
+        if (e.target === e.currentTarget) onClick()
     }
-    closeByBackdrop = (e) => {
-        if (e.target === e.currentTarget)this.props.onClick()
-    }
-    render() {
-         const {image}=this.props
             return(
         <>
-            <ModalOverlay  onClick={this.closeByBackdrop}>
+            <ModalOverlay  onClick={closeByBackdrop}>
                 <ModalContainer >
                     <img src={image} alt={image} loading='lazy' />
                 </ModalContainer>
             </ModalOverlay>
         </>
     )
-    }
 }
 
 Modal.propTypes = {
