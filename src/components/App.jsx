@@ -33,15 +33,14 @@ const App = () => {
         console.log('error', error)
       }
 }
-    makeFetch()
+    makeFetch();
   }, [imageName, pageNumber])
 
   const showValidationMessage = (message) => {
     Notify.warning(message);
   }
 
-  const  onSubmitHandler =  useCallback(({ value }) => {
-
+  const onSubmitHandler = useCallback(({ value }) => {
     setPageNumber(1);
     setShowBtn();
     setImageName(value);
@@ -64,9 +63,6 @@ const App = () => {
       setUrlForModalPicture('');
     document.documentElement.style.overflow = null
   },[])
-
-  
-
     return (
       <Container>
           <SearchBar onSubmit={onSubmitHandler} onValidation = {showValidationMessage}/>

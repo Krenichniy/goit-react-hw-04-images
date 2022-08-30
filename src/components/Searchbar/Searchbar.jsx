@@ -14,7 +14,7 @@ const [value, setValue] = useState('')
         event.preventDefault();
         
         if (!value.trim()) return showMessage('Please fill this field');
-        callback( value );
+        callback( {value });
         reset();
     }
 
